@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "uilib",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

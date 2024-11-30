@@ -1,0 +1,49 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\XWANG\\.ohos\\config\\auto_debug_ScaffoldDemo_com.xun.scaffolddemo_8337289.cer",
+          "storePassword": "0000001B8D0BD195901D9E0F7400172A392B837BA9DEF2091993EC1B9A6F1E5BA124F5B8A3EE38CD98EA84",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B4B112DE6F52AB6ACE023BC192D2D6EEB1BF61D4FD8120F3C2A1FF4CB5426271D853AF800003851",
+          "profile": "C:\\Users\\XWANG\\.ohos\\config\\auto_debug_ScaffoldDemo_com.xun.scaffolddemo_8337289.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\XWANG\\.ohos\\config\\auto_debug_ScaffoldDemo_com.xun.scaffolddemo_8337289.p12"
+        }
+      }
+    ],
+    "compileSdkVersion": 9,
+    "compatibleSdkVersion": 9,
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "commlib",
+      "srcPath": "./framwork/commlib"
+    },
+    {
+      "name": "uilib",
+      "srcPath": "./framwork/uilib"
+    }
+  ]
+}
