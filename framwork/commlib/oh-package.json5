@@ -7,6 +7,6 @@
   "main": "index.ets",
   "version": "1.0.0",
   "dependencies": {
-    "@ohos/axios": "^2.1.0"
+    "@ohos/axios": "^2.2.0-rc.3"
   }
 }

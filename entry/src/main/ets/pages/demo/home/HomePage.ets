@@ -3,10 +3,13 @@
  @date: 2024/1/11
  @description: 首页
  */
+import { BaseWebComponent } from '../components/web/BaseWebComponent'
 
 @Component
 export struct HomePage {
   build() {
-    Stack().height("100%").width("100%").backgroundColor("#ff0000")
+    Stack() {
+      BaseWebComponent({ src: $rawfile('JSBridgeUnitTest.html') })
+    }.height("100%").width("100%")
   }
 }

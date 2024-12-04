@@ -1,6 +1,6 @@
 import { MLog, MPreferencesUtil, MToast } from '@app/commlib'
 import { MLoadingDialog, MCommDialog } from '@app/uilib'
-import { getHomeList, getHomeListAxios } from '../http/apiService'
+import { getHomeList } from '../http/apiService'
 import emitter from '@ohos.events.emitter'
 import { loadingEvent } from '@app/commlib/src/main/ets/event/EventKey'
 import router from '@ohos.router'
@@ -11,7 +11,6 @@ struct Index {
   @State message: string = 'Hello World'
   @State loadingTips: string = "加载中..."
   @State loadingShow: boolean = false
-
   //全局的loading
   loadingDialogController: CustomDialogController = new CustomDialogController({
     builder: MLoadingDialog({ loadingTips: this.loadingTips }),
@@ -43,11 +42,11 @@ struct Index {
     MLog.debug("aboutToAppear")
 
     emitter.on(loadingEvent, (event) => {
-      if (event.data.showLoading == true && !this.loadingShow) {
+      if (event.data?.showLoading == true && !this.loadingShow) {
         this.loadingShow = true
-        this.loadingTips = event.data.loadingTips
+        this.loadingTips = event.data?.loadingTips
         this.loadingDialogController.open()
-      } else if (event.data.showLoading == false) {
+      } else if (event.data?.showLoading == false) {
         this.loadingDialogController.close()
         this.loadingShow = false
       }
@@ -96,23 +95,20 @@ struct Index {
               //MLog内部应该支持object的序列号打印
               MLog.debug("HomeTag->" + res)
               MLog.debug("HomeTag->" + typeof (res))
-              // @ts-ignore
-              MLog.debug("HomeTag->" + JSON.stringify(JSON.parse(res)))
-              // @ts-ignore
-              MLog.debug("HomeTag->" + typeof (JSON.parse(res)))
-              // @ts-ignore
-              MLog.debug("HomeTag->" + JSON.parse(res).nextPageUrl)
-            }).catch((err) => {
+              // MLog.debug("HomeTag->" + JSON.stringify(JSON.parse(res)))
+              // MLog.debug("HomeTag->" + typeof (JSON.parse(res)))
+              // MLog.debug("HomeTag->" + JSON.parse(res).nextPageUrl)
+            }).catch((err: Error) => {
               MLog.error(err)
             })
           })
           Button("http2").fontSize('16vp').onClick(() => {
-            getHomeListAxios().then((res) => {
-              MLog.debug("HomeTag->" + res)
-              MLog.debug("HomeTag->" + res.nextPageUrl)
-            }).catch((err) => {
-              MLog.error(err)
-            })
+            // getHomeListAxios().then((res) => {
+            //   MLog.debug("HomeTag->" + res)
+            //   MLog.debug("HomeTag->" + res.nextPageUrl)
+            // }).catch((err: Error) => {
+            //   MLog.error(err)
+            // })
           })
         }
 
@@ -128,7 +124,7 @@ struct Index {
           Button("toWebPage").fontSize('16vp').onClick(() => {
             router.pushUrl({
               url: 'pages/WebPage',
-              params:{
+              params: {
                 src: $rawfile('JSBridgeUnitTest.html')
               }
 
@@ -141,7 +137,7 @@ struct Index {
         Button("toDemo").fontSize('16vp').onClick(() => {
           router.pushUrl({
             url: 'pages/demo/DemoPage',
-            params:{
+            params: {
               src: "111111"
             }
 
@@ -156,7 +152,8 @@ struct Index {
   }
 }
 
-@Builder function GlobalBuilder1() {
+@Builder
+function GlobalBuilder1() {
   Column() {
     Text('自定义dialog')
       .width(400)

@@ -7,7 +7,7 @@ import axios, {
 import { MLog } from '../log/MLog';
 import { errorHandler } from './request';
 
-export interface BaseResponse{
+export interface BaseResponse {
   //基础API响应字段
   errorCode: number
   errorMsg: string
@@ -17,8 +17,8 @@ export interface BaseResponse{
 /**
  * 接口实现类包装，例如有其他业务可以再次继承实现xxxResponse
  */
-export interface ApiResponse<T = any> extends BaseResponse {
-  data: T | any;
+export interface ApiResponse<T> extends BaseResponse {
+  data: T;
   //拓展xxx-API响应体
 }
 
@@ -30,21 +30,21 @@ export interface ApiResponse<T = any> extends BaseResponse {
  */
 interface InterceptorHooks {
   requestInterceptor?: (config: HttpRequestConfig) => Promise<HttpRequestConfig>;
-  requestInterceptorCatch?: (error: any) => any;
+  requestInterceptorCatch?: (error: object) => object;
   responseInterceptor?: (response: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>;
-  responseInterceptorCatch?: (error: any) => any;
+  responseInterceptorCatch?: (error: object) => object;
 }
 
 //这里主要是高版本的axios中设置拦截器的时候里面的Config属性必须是InternalAxiosRequestConfig，但是InternalAxiosRequestConfig里面的headers是必传，所以在实现的子类我设置成非必传会报错，加了个忽略注解
-// @ts-ignore
 interface HttpRequestConfig extends InternalAxiosRequestConfig {
   showLoading?: boolean; //是否展示请求loading
   checkResultCode?: boolean; //是否检验响应结果码
   checkLoginState?: boolean //校验用户登陆状态
   needJumpToLogin?: boolean //是否需要跳转到登陆页面
   interceptorHooks?: InterceptorHooks;
-  headers?: AxiosRequestHeaders
+  // headers: AxiosRequestHeaders|undefined
 }
+
 
 
 /**
@@ -64,9 +64,7 @@ class AxiosHttpRequest {
   }
 
   setupInterceptor(): void {
-    this.instance.interceptors.request.use(
-      //这里主要是高版本的axios中设置拦截器的时候里面的Config属性必须是InternalAxiosRequestConfig，但是InternalAxiosRequestConfig里面的headers是必传，所以在实现的子类我设置成非必传会报错，加了个忽略注解
-      // @ts-ignore
+    this.instance.interceptors.request.use(//这里主要是高版本的axios中设置拦截器的时候里面的Config属性必须是InternalAxiosRequestConfig，但是InternalAxiosRequestConfig里面的headers是必传，所以在实现的子类我设置成非必传会报错，加了个忽略注解
       this.interceptorHooks?.requestInterceptor,
       this.interceptorHooks?.requestInterceptorCatch,
     );
@@ -77,14 +75,14 @@ class AxiosHttpRequest {
   }
 
   // 类型参数的作用，T决定AxiosResponse实例中data的类型
-  request<T = any>(config: HttpRequestConfig): Promise<T> {
+  request<T>(config: HttpRequestConfig): Promise<T> {
     return new Promise<T>((resolve, reject) => {
       this.instance
-        .request<any, T>(config)
+        .request<object, T>(config)
         .then(res => {
           resolve(res);
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           MLog.error("网络请求Request异常：", err.message)
           errorHandler(err)
           if (err) {
@@ -94,20 +92,52 @@ class AxiosHttpRequest {
     });
   }
 
-  get<T = any>(config: HttpRequestConfig): Promise<T> {
-    return this.request({ ...config, method: 'GET' });
+  get<T>(config: HttpRequestConfig): Promise<T> {
+    return this.request({
+      showLoading: config.showLoading,
+      checkResultCode: config.checkResultCode,
+      checkLoginState: config.checkLoginState,
+      needJumpToLogin: config.needJumpToLogin,
+      interceptorHooks: config.interceptorHooks,
+      headers: config.headers,
+      method: 'GET'
+    });
   }
 
-  post<T = any>(config: HttpRequestConfig): Promise<T> {
-    return this.request({ ...config, method: 'POST' });
+  post<T>(config: HttpRequestConfig): Promise<T> {
+    return this.request({
+      showLoading: config.showLoading,
+      checkResultCode: config.checkResultCode,
+      checkLoginState: config.checkLoginState,
+      needJumpToLogin: config.needJumpToLogin,
+      interceptorHooks: config.interceptorHooks,
+      headers: config.headers,
+      method: 'POST'
+    });
   }
 
-  delete<T = any>(config: HttpRequestConfig): Promise<T> {
-    return this.request({ ...config, method: 'DELETE' });
+  delete<T>(config: HttpRequestConfig): Promise<T> {
+    return this.request({
+      showLoading: config.showLoading,
+      checkResultCode: config.checkResultCode,
+      checkLoginState: config.checkLoginState,
+      needJumpToLogin: config.needJumpToLogin,
+      interceptorHooks: config.interceptorHooks,
+      headers: config.headers,
+      method: 'DELETE'
+    });
   }
 
-  patch<T = any>(config: HttpRequestConfig): Promise<T> {
-    return this.request({ ...config, method: 'PATCH' });
+  patch<T>(config: HttpRequestConfig): Promise<T> {
+    return this.request({
+      showLoading: config.showLoading,
+      checkResultCode: config.checkResultCode,
+      checkLoginState: config.checkLoginState,
+      needJumpToLogin: config.needJumpToLogin,
+      interceptorHooks: config.interceptorHooks,
+      headers: config.headers,
+      method: 'PATCH'
+    });
   }
 }
 

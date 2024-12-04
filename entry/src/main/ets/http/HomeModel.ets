@@ -32,18 +32,15 @@ export interface HomeModelIssueListItemList {
 
 export class BannerData implements IDataSource {
   private list: HomeModelIssueListItemList[] = []
-  private listener: DataChangeListener
 
   constructor(list: HomeModelIssueListItemList[]) {
     this.list = list
   }
 
-  unregisterDataChangeListener(listener: DataChangeListener): void {
-
+  registerDataChangeListener(listener: DataChangeListener): void {
   }
 
-  registerDataChangeListener(listener: DataChangeListener): void {
-    this.listener = listener
+  unregisterDataChangeListener(listener: DataChangeListener): void {
   }
 
   getData(index: number) {
@@ -69,7 +66,6 @@ export interface CoverModel {
   feed: string;
   detail: string;
   blurred: string;
-  sharing?: any;
   homepage: string;
 }
 
@@ -81,7 +77,6 @@ export interface AuthorModel {
   link: string;
   latestReleaseTime: number;
   videoNum: number;
-  adTrack?: any;
   follow: RootObjectFollow;
   shield: RootObjectShield;
   approvedNotReadyVideoCount: number;

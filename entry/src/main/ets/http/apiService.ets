@@ -1,5 +1,7 @@
 import { axiosClient, httpClient } from '@app/commlib'
 import { HomeModel } from './HomeModel'
+import { HttpRequestConfig } from '@app/commlib/src/main/ets/http/http'
+
 let baseUrl = "https://baobab.kaiyanapp.com/"
 let wanAndroidUrl = "https://www.wanandroid.com/"
 
@@ -11,8 +13,12 @@ let wanAndroidUrl = "https://www.wanandroid.com/"
 export function getHomeList(date: string = "") {
   return httpClient.get<HomeModel>({
     url: baseUrl + "api/v2/feed",
-    extraData: { "date": date }
+    extraData: { "date": date } as ExtraData
   })
+}
+
+interface ExtraData {
+  date: string; // 或者你需要的具体类型
 }
 
 /**
@@ -20,11 +26,12 @@ export function getHomeList(date: string = "") {
  * @param date
  * @returns
  */
-export function getHomeListAxios(date: string = "") {
-  return axiosClient.get<HomeModel>({
-    url: baseUrl + "api/v2/feed",
-    params: { "date": date },
-    showLoading: true
-    // headers: { "Accept": "application/json" } as AxiosRequestHeaders
-  })
-}
+
+// export function getHomeListAxios(date: string = "") {
+//   return axiosClient.get<HomeModel>({
+//     url: baseUrl + "api/v2/feed",
+//     params: { "date": date },
+//     showLoading: true,
+//     headers: undefined
+//   })
+// }

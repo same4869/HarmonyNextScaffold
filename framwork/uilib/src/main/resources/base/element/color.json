@@ -13,6 +13,10 @@
       "value": "#ff0000"
     },
     {
+      "name": "color_green",
+      "value": "#00ff00"
+    },
+    {
       "name": "color_111",
       "value": "#111111"
     },

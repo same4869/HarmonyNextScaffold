@@ -4,11 +4,14 @@
  * @param "
  * @returns
  */
+import { emitter } from '@kit.BasicServicesKit';
+
 export function LoadingDialogEvent(showLoading: boolean, loadingTips: string = "加载中...") {
-  return {
+  let eventData: emitter.EventData = {
     data: {
       "showLoading": showLoading,
       "loadingTips": loadingTips
     }
-  }
+  };
+  return eventData
 }

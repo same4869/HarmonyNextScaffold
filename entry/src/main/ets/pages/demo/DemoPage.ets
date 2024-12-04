@@ -77,6 +77,6 @@ struct DemoPage {
     }.justifyContent(FlexAlign.Center)
     .height(CommonConstants.FULL_HEIGHT_PERCENT)
     .width(CommonConstants.FULL_WIDTH_PERCENT)
-    .backgroundColor($r("app.color.color_ddd"))
+    .backgroundColor($r("app.color.color_white"))
   }
 }

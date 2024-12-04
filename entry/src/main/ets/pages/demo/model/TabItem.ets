@@ -5,20 +5,17 @@ export class TabItem {
   /**
    * Tab item index.
    */
-  index: number;
-
+  index?: number;
   /**
    * Tab item title.
    */
-  title: string;
-
+  title?: string;
   /**
    * Image activated.
    */
-  imageActivated: Resource;
-
+  imageActivated?: Resource;
   /**
    * Image original.
    */
-  imageOriginal: Resource;
+  imageOriginal?: Resource;
 }

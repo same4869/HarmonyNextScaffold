@@ -8,7 +8,7 @@ struct OtherPage {
     Stack() {
       Image($r('app.media.app_icon')).objectFit(ImageFit.ScaleDown).onClick(() => {
         let context = getContext(this) as Context.UIAbilityContext;
-        MDialogUtil.prototype.alertDialog(context, "标题", "取消", "确认")
+        new MDialogUtil().alertDialog(context, "标题", "取消", "确认")
       })
     }.width('100%').height('100%')
   }

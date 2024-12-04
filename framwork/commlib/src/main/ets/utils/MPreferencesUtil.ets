@@ -24,12 +24,12 @@ export class MPreferencesUtil {
    * @returns
    */
   static async getPreferences(preferenceName: string = defaultPreferenceName) {
-    return await dataPreferences.getPreferences(this.context, preferenceName)
+    return await dataPreferences.getPreferences(MPreferencesUtil.context, preferenceName)
   }
 
   static async put(key: string, value: ValueType, preferenceName: string = defaultPreferenceName) {
     // 获取实例
-    let preferences = await this.getPreferences(preferenceName)
+    let preferences = await MPreferencesUtil.getPreferences(preferenceName)
     preferences.put(key, value)
   }
   /**
@@ -42,7 +42,7 @@ export class MPreferencesUtil {
    */
   static async get(key: string, defaultValue: ValueType = "", preferenceName: string = defaultPreferenceName) {
     // 获取实例
-    let preferences = await this.getPreferences(preferenceName)
+    let preferences = await MPreferencesUtil.getPreferences(preferenceName)
     return preferences.get(key, defaultValue)
   }
 
@@ -53,7 +53,7 @@ export class MPreferencesUtil {
    * @returns
    */
   static async delete(key: string, preferenceName: string = defaultPreferenceName) {
-    let preferences = await this.getPreferences(preferenceName)
+    let preferences = await MPreferencesUtil.getPreferences(preferenceName)
     return await preferences.delete(key)
   }
 
@@ -63,7 +63,7 @@ export class MPreferencesUtil {
    * @returns
    */
   static async clear(preferenceName: string = defaultPreferenceName) {
-    let preferences = await this.getPreferences(preferenceName)
+    let preferences = await MPreferencesUtil.getPreferences(preferenceName)
     return await preferences.clear()
   }
 
@@ -73,7 +73,7 @@ export class MPreferencesUtil {
    * @returns
    */
   static async has(key: string, preferenceName: string = defaultPreferenceName) {
-    let preferences = await this.getPreferences(preferenceName)
+    let preferences = await MPreferencesUtil.getPreferences(preferenceName)
     return await preferences.has(key)
   }
 }

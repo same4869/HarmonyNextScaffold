@@ -17,7 +17,7 @@ struct WebPage {
   aboutToAppear() {
     webViewModel.observeState(state => {
       MLog.debug("state -> " + state)
-      WebUtil.prototype.callbackWebMethod(this.webController, state, "1111")
+      new WebUtil().callbackWebMethod(this.webController, state, "1111")
     })
   }
 
