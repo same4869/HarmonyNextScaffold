@@ -22,11 +22,11 @@ export struct MarketPage {
       Row() {
         Row() {
           this.tabBuilder({
-            name: '自选', value: 30,
+            name: '标题1', value: 30,
             onAreaChange: (area) => {
             }
           })
-          this.tabBuilder({ name: '市场' })
+          this.tabBuilder({ name: '标题2' })
         }
         .width('100%')
         .padding({ left: 16, right: 16 })

@@ -90,7 +90,6 @@ struct Index {
         Row() {
           Button("http1").fontSize('16vp').onClick(() => {
             getHomeList().then((res) => {
-              //这里比较奇怪
               //res是个string，虽然编译器能直接点出后面的值，但实际取不到，要json.parse一下
               //MLog内部应该支持object的序列号打印
               MLog.debug("HomeTag->" + res)
